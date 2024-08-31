@@ -5,7 +5,7 @@
 <div class="column">
     {% for item in menu %}
     <p>
-        <a href="#">
+        <a href="{% url 'menu_item' pk=item.pk %}">
             {{item.name}}
         </a>
 
