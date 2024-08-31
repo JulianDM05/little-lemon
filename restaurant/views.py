@@ -1,5 +1,6 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+
+from .models import Menu
 
 # Create your views here.
 def home(request):
@@ -12,4 +13,7 @@ def book(request):
   return render(request, 'index.html')
 
 def menu(request):
-  return render(request, 'index.html')
+  menu_data = Menu.objects.order_by('name')
+  main_data = {'menu': menu_data}
+
+  return render(request, 'menu.html', main_data)
