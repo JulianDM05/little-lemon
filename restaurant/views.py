@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from .forms import BookingForm
 
 from .models import Menu
 
@@ -10,7 +11,13 @@ def about(request):
   return render(request, 'about.html')
 
 def book(request):
-  return render(request, 'index.html')
+  form = BookingForm()
+  if request.method == 'POST':
+    form = BookingForm(request.POST)
+    if form.is_valid():
+      form.save()
+  context = {'form':form}
+  return render(request, 'book.html', context)
 
 def menu(request):
   menu_data = Menu.objects.order_by('name')
